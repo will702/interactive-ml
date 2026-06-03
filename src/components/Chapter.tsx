@@ -25,7 +25,7 @@ export default function Chapter({ title, subtitle, children }: ChapterProps) {
       <nav style={{
         position: 'sticky',
         top: 0,
-        zIndex: 'var(--z-nav)' as unknown as number,
+        zIndex: 20,
         background: 'var(--paper)',
         borderBottom: '1px solid var(--rule)',
         display: 'flex',

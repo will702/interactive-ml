@@ -43,6 +43,7 @@ export default function Scrolly({ frames, scene, frameHeight = '80vh' }: Scrolly
     )
   }
 
+  // frameHeight must be a vh value (e.g. '80vh')
   const totalHeight = `${frames.length * parseFloat(frameHeight)}vh`
   const frameIndex = Math.min(frames.length - 1, Math.floor(progress * frames.length))
 

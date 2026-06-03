@@ -50,9 +50,9 @@ export default function Scrolly({ frames, scene, frameHeight = '80vh' }: Scrolly
   return (
     <div ref={containerRef} style={{ height: totalHeight, position: 'relative' }}>
       {/* Sticky container */}
-      <div style={{ position: 'sticky', top: '52px', height: 'calc(100vh - 52px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'start', padding: '2rem 0' }}>
+      <div style={{ position: 'sticky', top: 'var(--nav-height)', height: 'calc(100vh - var(--nav-height))', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'start', padding: '2rem 0' }}>
         {/* Left: widget scene */}
-        <div style={{ position: 'sticky', top: '52px', padding: '1rem 0' }}>
+        <div style={{ position: 'sticky', top: 'var(--nav-height)', padding: '1rem 0' }}>
           {scene(progress)}
         </div>
         {/* Right: narrative frame */}

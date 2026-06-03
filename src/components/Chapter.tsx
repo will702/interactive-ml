@@ -32,7 +32,7 @@ export default function Chapter({ title, subtitle, children }: ChapterProps) {
         gap: '0',
         alignItems: 'center',
         padding: '0 1.5rem',
-        height: '52px',
+        height: 'var(--nav-height)',
         fontFamily: 'var(--font-display)',
         fontSize: 'var(--step--1)',
       }}>
@@ -40,6 +40,7 @@ export default function Chapter({ title, subtitle, children }: ChapterProps) {
           <Link
             key={item.to}
             to={item.to}
+            aria-current={pathname === item.to ? 'page' : undefined}
             style={{
               padding: '0 0.875rem',
               height: '100%',

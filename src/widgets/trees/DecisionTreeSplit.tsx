@@ -37,14 +37,19 @@ export default function DecisionTreeSplit({ progress, dataset = 'blobs', maxDept
   const xs = useMemo(() => data.map(p => [p.x, p.y]), [data])
   const labels = useMemo(() => data.map(p => p.label), [data])
 
-  const xExtent = d3.extent(data, p => p.x) as [number, number]
-  const yExtent = d3.extent(data, p => p.y) as [number, number]
-  const pad = 0.4
-  const xDom: [number, number] = [xExtent[0] - pad, xExtent[1] + pad]
-  const yDom: [number, number] = [yExtent[0] - pad, yExtent[1] + pad]
-
-  const xScale = d3.scaleLinear().domain(xDom).range([0, INNER_W])
-  const yScale = d3.scaleLinear().domain(yDom).range([INNER_H, 0])
+  const { xDom, yDom, xScale, yScale } = useMemo(() => {
+    const xExtent = d3.extent(data, p => p.x) as [number, number]
+    const yExtent = d3.extent(data, p => p.y) as [number, number]
+    const pad = 0.4
+    const xDom: [number, number] = [xExtent[0] - pad, xExtent[1] + pad]
+    const yDom: [number, number] = [yExtent[0] - pad, yExtent[1] + pad]
+    return {
+      xDom,
+      yDom,
+      xScale: d3.scaleLinear().domain(xDom).range([0, INNER_W]),
+      yScale: d3.scaleLinear().domain(yDom).range([INNER_H, 0]),
+    }
+  }, [data])
 
   const tree = useMemo(() => {
     if (activeDepth === 0) return null

@@ -12,8 +12,8 @@ export interface Split {
   feature: number
   threshold: number
   gini: number
-  leftLabels: number[]
-  rightLabels: number[]
+  leftIndices: number[]
+  rightIndices: number[]
 }
 
 export function giniImpurity(labels: number[]): number {
@@ -36,7 +36,7 @@ export function entropy(labels: number[]): number {
   return e
 }
 
-function weightedGini(left: number[], right: number[]): number {
+export function weightedGini(left: number[], right: number[]): number {
   const n = left.length + right.length
   return (left.length / n) * giniImpurity(left) + (right.length / n) * giniImpurity(right)
 }
@@ -62,16 +62,16 @@ export function findBestSplit(
     const thresholds = values.slice(0, -1).map((v, i) => (v + values[i + 1]) / 2)
 
     for (const t of thresholds) {
-      const leftLabels: number[] = [], rightLabels: number[] = []
+      const leftIndices: number[] = [], rightIndices: number[] = []
       xs.forEach((x, i) => {
-        if (x[f] <= t) leftLabels.push(labels[i])
-        else rightLabels.push(labels[i])
+        if (x[f] <= t) leftIndices.push(i)
+        else rightIndices.push(i)
       })
-      if (leftLabels.length === 0 || rightLabels.length === 0) continue
-      const g = weightedGini(leftLabels, rightLabels)
+      if (leftIndices.length === 0 || rightIndices.length === 0) continue
+      const g = weightedGini(leftIndices.map(i => labels[i]), rightIndices.map(i => labels[i]))
       if (g < bestGini) {
         bestGini = g
-        best = { feature: f, threshold: t, gini: g, leftLabels, rightLabels }
+        best = { feature: f, threshold: t, gini: g, leftIndices, rightIndices }
       }
     }
   }
@@ -98,12 +98,10 @@ export function buildTree(
   node.feature = split.feature
   node.threshold = split.threshold
 
-  const leftXs: number[][] = [], leftL: number[] = []
-  const rightXs: number[][] = [], rightL: number[] = []
-  xs.forEach((x, i) => {
-    if (x[split.feature] <= split.threshold) { leftXs.push(x); leftL.push(labels[i]) }
-    else { rightXs.push(x); rightL.push(labels[i]) }
-  })
+  const leftXs = split.leftIndices.map(i => xs[i])
+  const leftL = split.leftIndices.map(i => labels[i])
+  const rightXs = split.rightIndices.map(i => xs[i])
+  const rightL = split.rightIndices.map(i => labels[i])
 
   node.left = buildTree(leftXs, leftL, maxDepth, depth + 1)
   node.right = buildTree(rightXs, rightL, maxDepth, depth + 1)

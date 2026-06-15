@@ -2,28 +2,35 @@
   "name": "interactive-ml",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.1",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.0",
     "d3": "^7.9.0",
     "framer-motion": "^12.12.1",
-    "katex": "^0.16.22"
+    "katex": "^0.16.22",
+    "lucide-react": "^1.11.0",
+    "next": "16.2.4",
+    "react": "19.2.4",
+    "react-compare-slider": "^4.0.0",
+    "react-dom": "19.2.4",
+    "three": "^0.184.0",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
-    "@types/react": "^19.1.5",
-    "@types/react-dom": "^19.1.5",
     "@types/d3": "^7.4.3",
     "@types/katex": "^0.16.7",
-    "@vitejs/plugin-react": "^4.5.0",
-    "typescript": "~5.8.3",
-    "vite": "^6.3.5"
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.184.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "typescript": "^5"
   }
 }

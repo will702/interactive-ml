@@ -1,0 +1,129 @@
+/* ============================================================
+   reset.css — box-sizing, margin/padding resets
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: var(--accent); text-underline-offset: 3px; }
+button { cursor: pointer; font: inherit; }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   tokens.css — OKLCH CSS custom properties, fluid type scale
+   ============================================================ */
+:root {
+  --ink:         oklch(0.18 0.01 250);
+  --ink-soft:    oklch(0.40 0.01 250);
+  --paper:       oklch(0.99 0 0);
+  --rule:        oklch(0.92 0.005 250);
+  --accent:      oklch(0.55 0.18 25);
+  --accent-soft: oklch(0.92 0.05 25);
+  --measure:     68ch;
+
+  --step--1: clamp(0.85rem, 0.83rem + 0.10vw, 0.95rem);
+  --step-0:  clamp(1.00rem, 0.96rem + 0.20vw, 1.13rem);
+  --step-1:  clamp(1.25rem, 1.18rem + 0.34vw, 1.50rem);
+  --step-2:  clamp(1.56rem, 1.45rem + 0.55vw, 2.00rem);
+  --step-3:  clamp(1.95rem, 1.78rem + 0.86vw, 2.66rem);
+  --step-4:  clamp(2.44rem, 2.18rem + 1.31vw, 3.55rem);
+
+  --radius-sm: 4px;
+  --radius:    8px;
+  --z-sticky:  10;
+  --z-nav:     20;
+  --nav-height: 52px;
+
+  /* Animation timing */
+  --anim-slow: 600ms;
+  --anim-fast: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   prose.css — body typography / reading rhythm
+   ============================================================ */
+.prose {
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.75;
+  max-width: var(--measure);
+  color: var(--ink);
+}
+.prose p + p { margin-top: 1.2em; }
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 600;
+  line-height: 1.15;
+  margin-top: 3rem;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+.prose h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.prose .katex-block { margin: 1.5rem 0; overflow-x: auto; }
+.prose .katex { font-size: 1.05em; }
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--rule);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+}
+.section-rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 4rem 0;
+}
+
+/* ============================================================
+   CV utilities
+   ============================================================ */
+
+/* Glass — frosted backdrop card */
+.glass {
+  background: oklch(0.99 0 0 / 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid oklch(0.92 0.005 250 / 0.5);
+  border-radius: var(--radius);
+}
+
+/* Matrix cell — monospace grid cell */
+.matrix-cell {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--rule);
+  padding: 0.25em 0.5em;
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+}
